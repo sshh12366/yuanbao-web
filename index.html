@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#174f45">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="小金库">
+  <meta name="description" content="轻松记录每天的花销，给想要的未来存一笔。">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <title>小金库 · 日常记账</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="小金库首页">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c-7 0-12 5.2-12 12s5 12 12 12 12-5.2 12-12S23 4 16 4Zm-4.7 17.1c1-5.6 4.5-9.3 10.5-10.4-.9 6.4-4.4 10-10.5 10.4Zm.1-6.4c2.5.9 4.5 2.8 5.5 5.1"/></svg></span>
+        <span><strong>小金库</strong><small>日常有数，未来有光</small></span>
+      </a>
+      <button class="icon-button" id="shareButton" aria-label="分享应用" title="分享应用"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>
+    </header>
+
+    <main id="mainContent">
+      <section class="page active" id="page-home" data-page="home">
+        <div class="greeting"><p class="eyebrow" id="todayLabel"></p><h1>今天也有好好生活。</h1><p class="subtle">把每一笔记下来，慢慢靠近想要的日子。</p></div>
+        <section class="balance-card" aria-label="今日与本月收支">
+          <div class="balance-top"><span class="balance-label"><span class="sun-icon">☼</span> 今日支出</span><span class="month-chip">本月 <b id="monthExpense">¥0.00</b></span></div>
+          <div class="balance-amount" id="todayExpense">¥0.00</div>
+          <div class="balance-footer"><span>本月收入</span><strong id="monthIncome">¥0.00</strong><span class="balance-note">每一份努力，都值得被记住</span></div>
+          <div class="card-orb orb-one"></div><div class="card-orb orb-two"></div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">SPENDING RHYTHM</p><h2>最近 7 天</h2></div><span class="section-note">每日支出</span></div>
+          <div class="chart-card"><div id="weekChart" class="week-chart" role="img" aria-label="最近七天每日支出"></div></div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">LITTLE BY LITTLE</p><h2>存钱目标</h2></div><button class="text-button" data-action="new-goal">新建 <span>＋</span></button></div>
+          <div id="homeGoals" class="goal-stack"></div>
+        </section>
+
+        <section class="section-block last-block">
+          <div class="section-heading"><div><p class="eyebrow">RECENT NOTES</p><h2>最近记录</h2></div><button class="text-button" data-page-link="ledger">全部明细 <span>›</span></button></div>
+          <div id="homeEntries" class="entry-card"></div>
+        </section>
+      </section>
+
+      <section class="page" id="page-ledger" data-page="ledger">
+        <div class="page-title"><p class="eyebrow">YOUR MONEY, CLEARLY</p><h1>收支明细</h1><p class="subtle">每一笔都有迹可循。</p></div>
+        <div class="filter-row"><button class="filter-chip active" data-filter="all">全部</button><button class="filter-chip" data-filter="支出">支出</button><button class="filter-chip" data-filter="收入">收入</button><button class="filter-chip" data-filter="存钱">存钱</button></div>
+        <div id="allEntries" class="ledger-groups"></div>
+      </section>
+
+      <section class="page" id="page-goals" data-page="goals">
+        <div class="page-title"><p class="eyebrow">A GIFT TO YOUR FUTURE</p><h1>存钱目标</h1><p class="subtle">慢慢来，也算在前进。</p></div>
+        <div id="allGoals" class="goal-stack"></div>
+        <button class="wide-add" data-action="new-goal"><span>＋</span> 新建一个目标</button>
+      </section>
+
+      <section class="page" id="page-settings" data-page="settings">
+        <div class="page-title"><p class="eyebrow">YOUR PRIVATE LEDGER</p><h1>设置</h1><p class="subtle">账本只存在你的这台设备上。</p></div>
+        <section class="settings-card">
+          <div class="settings-icon">↗</div><div><strong>导出账单 CSV</strong><p>用 Numbers、Excel 或“文件”打开</p></div><button class="round-arrow" data-action="export-csv" aria-label="导出CSV">›</button>
+        </section>
+        <section class="settings-card">
+          <div class="settings-icon">⬇</div><div><strong>备份全部数据</strong><p>保存一份可恢复的 JSON 备份</p></div><button class="round-arrow" data-action="export-json" aria-label="备份数据">›</button>
+        </section>
+        <section class="settings-card">
+          <div class="settings-icon">⬆</div><div><strong>恢复数据备份</strong><p>从之前导出的 JSON 文件恢复</p></div><button class="round-arrow" data-action="import-json" aria-label="恢复备份">›</button>
+        </section>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+        <div class="ecosystem-card"><div class="ecosystem-title"><span>⌂</span><strong>放到 iPhone 主屏幕</strong></div><p>在 Safari 打开这个网页，点“分享”→“添加到主屏幕”，再打开“作为 Web App 打开”。添加后像 App 一样全屏使用，也能离线记账。</p><div class="privacy-note"><span class="lock-dot">●</span>数据保存在此浏览器，不会上传到服务器。换设备前请先备份。</div></div>
+        <div class="about-note">小金库 · 轻量记账<br>金额以人民币显示 · 不连接银行账户</div>
+      </section>
+    </main>
+
+    <nav class="tabbar" aria-label="主导航">
+      <button class="tab active" data-page-link="home"><span class="tab-symbol">⌂</span><span>总览</span></button>
+      <button class="tab" data-page-link="ledger"><span class="tab-symbol">▤</span><span>明细</span></button>
+      <button class="tab" data-page-link="goals"><span class="tab-symbol">◎</span><span>目标</span></button>
+      <button class="tab" data-page-link="settings"><span class="tab-symbol">☷</span><span>设置</span></button>
+    </nav>
+    <button class="fab" id="addButton" aria-label="记一笔"><span>＋</span></button>
+  </div>
+
+  <dialog id="entryDialog" class="sheet-dialog">
+    <form id="entryForm" method="dialog">
+      <div class="dialog-grabber"></div><div class="dialog-heading"><div><p class="eyebrow">A SMALL NOTE</p><h2>记一笔</h2></div><button class="close-button" type="button" data-close="entryDialog" aria-label="关闭">×</button></div>
+      <div class="segmented" id="kindPicker"><button type="button" class="selected" data-kind="支出">支出</button><button type="button" data-kind="收入">收入</button><button type="button" data-kind="存钱">存钱</button></div>
+      <label class="field-label" for="entryAmount">金额</label><div class="amount-input"><span>¥</span><input id="entryAmount" name="amount" inputmode="decimal" placeholder="0.00" autocomplete="off" required></div>
+      <div class="form-grid"><label>分类<select id="entryCategory" name="category"></select></label><label>日期<input id="entryDate" name="date" type="datetime-local" required></label></div>
+      <label id="goalSelectWrap" class="field-label goal-select-wrap" hidden>存入目标<select id="entryGoal" name="goal"></select></label>
+      <label class="field-label" for="entryNote">备注 <span class="optional">选填</span></label><input class="text-input" id="entryNote" name="note" placeholder="写点什么…" maxlength="80">
+      <button class="primary-button" type="submit">保存这笔记录</button>
+    </form>
+  </dialog>
+
+  <dialog id="goalDialog" class="sheet-dialog">
+    <form id="goalForm" method="dialog">
+      <div class="dialog-grabber"></div><div class="dialog-heading"><div><p class="eyebrow">A GOAL TO LOOK FORWARD TO</p><h2>新建目标</h2></div><button class="close-button" type="button" data-close="goalDialog" aria-label="关闭">×</button></div>
+      <label class="field-label" for="goalName">目标名称</label><input class="text-input" id="goalName" name="name" placeholder="例如：去旅行" maxlength="40" required>
+      <div class="form-grid"><label>目标金额<input id="goalTarget" name="target" inputmode="decimal" placeholder="0.00" required></label><label>已经存下<input id="goalStarting" name="starting" inputmode="decimal" value="0"></label></div>
+      <label class="field-label" for="goalDeadline">计划日期 <span class="optional">选填</span></label><input class="text-input" id="goalDeadline" name="deadline" type="date">
+      <button class="primary-button" type="submit">创建目标</button>
+    </form>
+  </dialog>
+
+  <dialog id="contributionDialog" class="sheet-dialog">
+    <form id="contributionForm" method="dialog">
+      <div class="dialog-grabber"></div><div class="dialog-heading"><div><p class="eyebrow">ONE STEP CLOSER</p><h2 id="contributionTitle">存入一笔</h2></div><button class="close-button" type="button" data-close="contributionDialog" aria-label="关闭">×</button></div>
+      <label class="field-label" for="contributionAmount">存入金额</label><div class="amount-input"><span>¥</span><input id="contributionAmount" inputmode="decimal" placeholder="0.00" required></div>
+      <label class="field-label" for="contributionNote">备注 <span class="optional">选填</span></label><input class="text-input" id="contributionNote" placeholder="写点什么…" maxlength="80">
+      <button class="primary-button" type="submit">存入目标</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
+
