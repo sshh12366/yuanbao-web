@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "小金库 · 日常记账",
+  "short_name": "小金库",
+  "description": "轻松记录每天的花销，给想要的未来存一笔。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f4ed",
+  "theme_color": "#174f45",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
+
